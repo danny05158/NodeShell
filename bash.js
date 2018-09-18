@@ -4,10 +4,11 @@ const cat = require('./cat');
 
 process.stdout.write('prompt > ');
 
-process.stdin.on('data', (data) => {
-  const cmd = data.toString().trim();
+process.stdin.on('data',  (data) => {
+  let cmd = data.toString().trim();
+  cmd = cmd.split(' ')
 
-  switch (cmd) {
+  switch (cmd[0]) {
     case 'ls':
       ls();
       break;
@@ -15,7 +16,7 @@ process.stdin.on('data', (data) => {
       pwd();
       break;
     case 'cat':
-      cat();
+      cat(cmd.slice(1))
       break;
     default:
       process.stdout.write(`\n${cmd} is not implemented`);
